@@ -1,0 +1,310 @@
+text,intent
+hi,greeting
+hello,greeting
+hey,greeting
+hey there,greeting
+good morning,greeting
+good evening,greeting
+good afternoon,greeting
+howdy,greeting
+what's up,greeting
+hi there,greeting
+hello there,greeting
+greetings,greeting
+sup,greeting
+yo,greeting
+hiya,greeting
+hello bot,greeting
+hey bot,greeting
+hi how are you,greeting
+hello can you help me,greeting
+hey i need help,greeting
+good day,greeting
+morning,greeting
+evening,greeting
+hi again,greeting
+hey good morning,greeting
+hi what can you do,greeting
+hello i am new here,greeting
+hey there how are you,greeting
+good morning how are you,greeting
+hi nice to meet you,greeting
+hello friend,greeting
+hey buddy,greeting
+hi mate,greeting
+hello i need assistance,greeting
+greetings how can i start,greeting
+hi there glad to meet you,greeting
+hello again,greeting
+hey whats going on,greeting
+hi can we talk,greeting
+good afternoon how are you doing,greeting
+hey i am back,greeting
+hello are you there,greeting
+hi just checking in,greeting
+hey long time no see,greeting
+good morning sunshine,greeting
+hi hope you are well,greeting
+my name is dipak,greeting
+my self is john,greeting
+myself is sarah,greeting
+i am dipak,greeting
+let me introduce myself i am raj,greeting
+bye,farewell
+goodbye,farewell
+see you,farewell
+see ya,farewell
+take care,farewell
+later,farewell
+farewell,farewell
+good night,farewell
+gotta go,farewell
+i am leaving,farewell
+that is all thanks,farewell
+thanks bye,farewell
+catch you later,farewell
+i will talk to you later,farewell
+until next time,farewell
+i am done thanks,farewell
+talk later,farewell
+goodbye for now,farewell
+have a good day,farewell
+see you soon,farewell
+i must go now,farewell
+alright bye,farewell
+thanks for your help goodbye,farewell
+bye bye,farewell
+i am heading out,farewell
+take care see you,farewell
+have a nice day,farewell
+i am off now,farewell
+cya,farewell
+signing off,farewell
+i will be back later,farewell
+done goodbye,farewell
+cheers bye,farewell
+tata,farewell
+peace out,farewell
+i am going now,farewell
+that will be all goodbye,farewell
+see you around,farewell
+alright that is everything bye,farewell
+i need to go now,farewell
+thanks a lot goodbye,farewell
+catch you on the flip side,farewell
+have a wonderful day,farewell
+time to go,farewell
+so long,farewell
+adios,farewell
+i appreciate your help goodbye,farewell
+wrapping up now bye,farewell
+generate an image of a sunset,image_request
+create an image of a dog,image_request
+show me a picture of mountains,image_request
+make an image of a futuristic city,image_request
+generate image of a cat sitting on a chair,image_request
+draw a picture of a forest,image_request
+i want an image of a dragon,image_request
+can you create a photo of the ocean,image_request
+generate a picture of a robot,image_request
+show me a visual of a flower garden,image_request
+create an illustration of a knight,image_request
+generate an image of a red car,image_request
+make a picture of snow mountains,image_request
+draw me a lion,image_request
+i need an image of a spaceship,image_request
+generate image of the eiffel tower,image_request
+create a photo of a beach,image_request
+show me a picture of a wolf,image_request
+visualize a tropical island,image_request
+generate art of a phoenix,image_request
+make an image of a cozy cabin,image_request
+generate image of a waterfall,image_request
+i want to see a picture of a tiger,image_request
+draw a fantasy castle,image_request
+generate an image of a beautiful lake,image_request
+create a picture of an astronaut in space,image_request
+show me an image of a cute puppy,image_request
+generate a photo of a city at night,image_request
+make an image of a rainbow,image_request
+draw a picture of a dragon breathing fire,image_request
+generate an image of a mountain with snow,image_request
+i need a picture of a black cat,image_request
+create an image of the moon,image_request
+show me a photo of the amazon rainforest,image_request
+generate a picture of a futuristic robot,image_request
+make art of a mermaid underwater,image_request
+draw an image of a horse running,image_request
+generate a sunset over the ocean image,image_request
+create a picture of a cyberpunk city,image_request
+show me a picture of an eagle flying,image_request
+generate an image of northern lights,image_request
+make a picture of a peaceful garden,image_request
+create an image of a scary monster,image_request
+generate art of a samurai warrior,image_request
+draw me a picture of a fox in the snow,image_request
+create an image of a volcanic eruption,image_request
+show me a picture of a butterfly garden,image_request
+generate an image of a futuristic skyline,image_request
+make art of a wolf howling at the moon,image_request
+draw me a picture of a pirate ship,image_request
+create a file with this information,file_request
+generate a pdf document,file_request
+make a word document,file_request
+create a text file for me,file_request
+i need a document with this content,file_request
+save this as a file,file_request
+export this to a document,file_request
+generate a report,file_request
+create a pdf report,file_request
+make a document about machine learning,file_request
+write this into a file,file_request
+i want a downloadable file,file_request
+create a summary document,file_request
+generate a doc with my notes,file_request
+make a file with this text,file_request
+export as pdf,file_request
+create a document for me please,file_request
+generate a word file,file_request
+i need a report file,file_request
+save these notes as a document,file_request
+build a text document,file_request
+create a file with the details,file_request
+generate a downloadable report,file_request
+make a pdf of this,file_request
+write a document about python,file_request
+can you export this as a document,file_request
+i want to save this as a pdf,file_request
+please create a file for this content,file_request
+generate a text report,file_request
+make me a document summarizing this,file_request
+create an official report file,file_request
+export this information as a word doc,file_request
+generate a project report,file_request
+save this conversation to a file,file_request
+create documentation for this,file_request
+make a pdf summary,file_request
+i need a file i can download,file_request
+create a printable document,file_request
+generate notes as a document,file_request
+write up a report for this,file_request
+i need a file with all this information,file_request
+export to pdf format,file_request
+make this into a document,file_request
+create a formatted report,file_request
+save this as a word document,file_request
+generate a file with my data,file_request
+i want a pdf version of this,file_request
+create a document i can share,file_request
+please export this to a file,file_request
+make a report document for me,file_request
+what is machine learning,general_query
+how does python work,general_query
+explain neural networks,general_query
+what is artificial intelligence,general_query
+tell me about deep learning,general_query
+how do i learn programming,general_query
+what is a database,general_query
+explain the concept of APIs,general_query
+what is cloud computing,general_query
+how does the internet work,general_query
+what is data science,general_query
+explain supervised learning,general_query
+what are the uses of AI,general_query
+how do chatbots work,general_query
+tell me about natural language processing,general_query
+what is a neural network,general_query
+explain what python is,general_query
+how does a computer work,general_query
+what is blockchain,general_query
+explain reinforcement learning,general_query
+what is big data,general_query
+how does GPS work,general_query
+tell me a fun fact,general_query
+what can you do,general_query
+help me understand transformers in AI,general_query
+what are large language models,general_query
+how does google search work,general_query
+what is open source software,general_query
+what is the difference between AI and ML,general_query
+how do recommendation systems work,general_query
+what is computer vision,general_query
+explain what an API is,general_query
+how does facial recognition work,general_query
+what is quantum computing,general_query
+how does wifi work,general_query
+can you give me info about elon musk,general_query
+tell me about APJ abdul kalam,general_query
+give me information about narendra modi,general_query
+who is albert einstein,general_query
+tell me about the life of tesla,general_query
+give me details about sachin tendulkar,general_query
+what do you know about bill gates,general_query
+can you tell me about steve jobs,general_query
+give me a brief about mahatma gandhi,general_query
+who was nelson mandela,general_query
+tell me facts about newton,general_query
+give me info about marie curie,general_query
+what can you tell me about obama,general_query
+describe the life of shakespeare,general_query
+give me background on warren buffett,general_query
+ok thanks,general_query
+ok got it,general_query
+ok i understand,general_query
+ok so what is python,general_query
+ok can you help me,general_query
+ok tell me more,general_query
+ok what about machine learning,general_query
+ok sounds good what next,general_query
+ok go ahead,general_query
+ok i see,general_query
+remember what i said earlier,contextual
+based on our last conversation,contextual
+as i mentioned before,contextual
+following up on what we discussed,contextual
+continue from where we left off,contextual
+going back to my previous question,contextual
+like i said earlier,contextual
+do you remember my name,contextual
+what did i ask you last time,contextual
+based on my previous queries,contextual
+you said something about this before,contextual
+recall our earlier discussion,contextual
+from our last session,contextual
+we talked about this before,contextual
+going back to my earlier question,contextual
+based on what you know about me,contextual
+remember my preference for,contextual
+we discussed this last time,contextual
+what was my last question,contextual
+can you recall what i told you,contextual
+continuing our conversation,contextual
+as per our previous chat,contextual
+pick up where we left off,contextual
+i told you earlier that,contextual
+you should know from before that,contextual
+do you remember our last chat,contextual
+what did we talk about last time,contextual
+based on my history,contextual
+you already know my preference,contextual
+from what i told you before,contextual
+can you continue from last session,contextual
+i asked you this before,contextual
+you should remember my name,contextual
+last time we spoke about this,contextual
+as we discussed in our previous session,contextual
+i have told you my preferences already,contextual
+you know what i like from before,contextual
+remind me what we talked about,contextual
+i mentioned this to you previously,contextual
+based on our conversation history,contextual
+do you have memory of what i said,contextual
+you should recall our earlier chat,contextual
+what was the topic of our last chat,contextual
+i was talking to you about this yesterday,contextual
+from my previous messages,contextual
+do you remember i told you my name,contextual
+you know from our past chat that,contextual
+referring back to what i said,contextual
+as established in our prior session,contextual
+carry on from where we stopped,contextual

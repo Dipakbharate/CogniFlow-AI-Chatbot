@@ -1,0 +1,25 @@
+# Environments
+.env
+.venv/
+venv/
+ENV/
+
+# Python caching
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local database (SQLite)
+chatbot.db
+
+# Dynamic / Generated user assets
+generated_img_*.jpg
+generated_document.docx
+generated_document.pdf
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

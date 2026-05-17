@@ -1,0 +1,16 @@
+streamlit
+fastapi
+uvicorn
+python-dotenv
+google-genai
+fpdf
+python-docx
+pydantic
+sqlalchemy
+requests
+pandas
+scikit-learn
+joblib
+matplotlib
+seaborn
+numpy
