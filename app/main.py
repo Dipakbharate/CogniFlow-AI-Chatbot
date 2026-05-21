@@ -2,8 +2,103 @@ import streamlit as st
 import uuid
 import requests
 import os
+from textwrap import dedent
 
 API_URL = "http://localhost:8001"
+
+def render_intent_details(intent_details: dict):
+    if not intent_details:
+        return
+        
+    intent = intent_details.get("intent", "unknown")
+    source = intent_details.get("source", "unknown")
+    local_intent = intent_details.get("local_intent", "")
+    local_confidence = intent_details.get("local_confidence", 0.0)
+    scores = intent_details.get("scores", {})
+    
+    # Format intent label
+    intent_display = intent.replace("_", " ").title()
+    
+    # Build breakdown HTML
+    breakdown_html = ""
+    for lbl, prob in sorted(scores.items(), key=lambda x: x[1], reverse=True):
+        bar_width = f"{prob * 100:.1f}%"
+        is_selected = (lbl == intent)
+        lbl_display = lbl.replace("_", " ").title()
+        color = "#00e5ff" if is_selected else "inherit"
+        weight = "600" if is_selected else "normal"
+        opacity = "1" if is_selected else "0.75"
+        bar_color = "linear-gradient(90deg, #00e5ff, #00ff87)" if is_selected else "rgba(128, 128, 128, 0.3)"
+        
+        breakdown_html += (
+            f'<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; opacity: {opacity};">'
+            f'<span style="font-family: inherit; font-size: 12px; color: {color}; font-weight: {weight};">{lbl_display}</span>'
+            f'<div style="display: flex; align-items: center; width: 60%; gap: 8px;">'
+            f'<div style="background: rgba(128, 128, 128, 0.1); border-radius: 4px; height: 6px; flex-grow: 1; overflow: hidden; border: 1px solid rgba(128, 128, 128, 0.1);">'
+            f'<div style="background: {bar_color}; height: 100%; width: {bar_width}; border-radius: 4px;"></div>'
+            f'</div>'
+            f'<span style="min-width: 45px; text-align: right; font-family: monospace; font-size: 11px; color: {color}; font-weight: {weight};">{prob:.1%}</span>'
+            f'</div>'
+            f'</div>'
+        )
+        
+    if source == "Local Classifier":
+        source_badge = (
+            f'<span style="font-size: 11px; padding: 4px 10px; border-radius: 20px; '
+            f'background: rgba(0, 229, 255, 0.12); border: 1px solid rgba(0, 229, 255, 0.3); '
+            f'color: #00e5ff; font-weight: 600; letter-spacing: 0.5px;">⚡ {source}</span>'
+        )
+        confidence_val = f"{local_confidence:.1%}"
+        progress_width = f"{local_confidence * 100:.1f}%"
+        progress_bar_color = "linear-gradient(90deg, #00e5ff, #0077ff)"
+    else:
+        # LLM Fallback
+        source_badge = (
+            f'<span style="font-size: 11px; padding: 4px 10px; border-radius: 20px; '
+            f'background: rgba(255, 0, 127, 0.12); border: 1px solid rgba(255, 0, 127, 0.3); '
+            f'color: #ff007f; font-weight: 600; letter-spacing: 0.5px;">🤖 {source}</span>'
+        )
+        confidence_val = "LLM Overrode"
+        progress_width = "100%"
+        progress_bar_color = "linear-gradient(90deg, #ff007f, #7f00ff)"
+        
+    fallback_note = ""
+    if source != "Local Classifier":
+        local_intent_display = local_intent.replace("_", " ").title()
+        fallback_note = (
+            f'<div style="font-size: 12px; color: #ff55a3; margin-bottom: 10px; padding: 6px 10px; '
+            f'background: rgba(255, 0, 127, 0.05); border-left: 3px solid #ff007f; border-radius: 0 6px 6px 0;">'
+            f'⚠️ Local Classifier confidence ({local_confidence:.1%}) for <b>{local_intent_display}</b> was '
+            f'below threshold (75.0%). Re-routing request to Gemini LLM.</div>'
+        )
+        
+    html_content = f"""
+<div style="background: rgba(128, 128, 128, 0.08); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 12px; padding: 14px; margin-top: 12px; margin-bottom: 8px; max-width: 550px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+<span style="font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.85;">🔮 Intent Routing Engine</span>
+{source_badge}
+</div>
+{fallback_note}
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+<div style="display: flex; align-items: center; gap: 8px;">
+<span style="font-size: 13px; opacity: 0.75;">Routed Intent:</span>
+<span style="font-family: monospace; font-size: 13px; font-weight: bold; background: rgba(128, 128, 128, 0.15); padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(128, 128, 128, 0.2);">{intent_display}</span>
+</div>
+<span style="font-weight: 700; font-size: 13px; color: #00e5ff;">{confidence_val}</span>
+</div>
+<div style="background: rgba(128, 128, 128, 0.1); border-radius: 10px; height: 5px; width: 100%; overflow: hidden; margin-bottom: 14px; border: 1px solid rgba(128, 128, 128, 0.05);">
+<div style="background: {progress_bar_color}; height: 100%; width: {progress_width};"></div>
+</div>
+<details style="font-size: 12px; cursor: pointer; border-top: 1px solid rgba(128, 128, 128, 0.15); padding-top: 8px;">
+<summary style="outline: none; margin-bottom: 6px; font-weight: 500; font-size: 12px; opacity: 0.85;">📈 View Intent Confidence Scores</summary>
+<div style="margin-top: 6px; display: grid; gap: 4px; background: rgba(128, 128, 128, 0.05); padding: 10px; border-radius: 8px;">
+{breakdown_html}
+</div>
+</details>
+</div>
+"""
+    # Uncomment the line below to show the Intent Routing Engine box during your demo!
+    # st.markdown(html_content, unsafe_allow_html=True)
 
 def main():
     st.set_page_config(page_title="CogniFlow AI", page_icon="🤖", layout="wide")
@@ -98,6 +193,9 @@ def main():
                             st.write("File no longer available on server.")
                     else:
                         st.write(content.get("content"))
+                    
+                    if "intent_details" in content:
+                        render_intent_details(content["intent_details"])
                 else:
                     st.write(content)
 
@@ -128,6 +226,9 @@ def main():
                                 st.download_button(label="Download File", data=f, file_name=response.get("filename"), key=str(uuid.uuid4()))
                     else:
                         st.write(response.get("content"))
+                    
+                    if "intent_details" in response:
+                        render_intent_details(response["intent_details"])
             except Exception as e:
                 st.error("Error communicating with the backend API. Is FastAPI running?")
 

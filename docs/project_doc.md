@@ -36,19 +36,23 @@ graph TD
 To prevent unauthorized API access, token overflow, or logic hijacking, CogniFlow AI leverages a two-tier verification layer:
 1. A localized, trained **TF-IDF + Support Vector Classifier (SVC)** / **Logistic Regression** pipeline trained on `data/intent_dataset.csv`.
 2. The pipeline is compiled and persisted in `data/trained_model/intent_model.pkl` for fast, lightweight in-memory inference.
-3. Fallback intent categorization via Google Gemini zero-shot learning ensures resilience.
+3. Fallback intent categorization via Google Gemini zero-shot learning ensures resilience if local confidence is below 75%.
+4. A rich Intent Routing Engine UI displays the confidence scores and fallback details to the user.
 
 Supported Intents:
 - `greeting`: Welcomes the user with minimal latency.
 - `farewell`: Ends the active conversational thread.
 - `image_request`: Triggers the Pollinations.ai image pipeline.
 - `file_request`: Creates structured document downloads.
-- `general_query` / `contextual`: Conducts deeper analysis of preferences and responds with Gemini.
+- `general_query` / `contextual`: Conducts deeper analysis of preferences and responds with Gemini. `contextual` queries automatically pull in context from the user's previous session.
+
 
 ### 3.2. Personalization Engine (`app/chatbot.py`)
-Equipped with dynamic preference extraction:
+Equipped with dynamic preference extraction and fact learning:
 - `learn_preferences()`: As the conversation progresses, this background engine extracts and updates a structured JSON dictionary of user habits, topics, and styles.
+- `extract_facts()`: Extracts specific user facts like name, broad preferences, and last discussed topics into a persistent key-value store for cross-session memory.
 - Contextual formatting automatically binds these parameters into system prompts to shape future conversational turns without manual user input.
+
 
 ### 3.3. File & Media Synthesis (`app/file_gen.py`, `app/image_gen.py`)
 - **`app/file_gen.py`**: Formats structured text outputs into stylized, paginated PDF or DOCX files for academic or corporate use.
@@ -56,9 +60,10 @@ Equipped with dynamic preference extraction:
 
 ### 3.4. Memory & SQLite Schema (`app/memory.py`)
 A solid SQLite relational structure enables multi-session persistence:
-- **`users` Table**: Tracks user identifiers and profile parameters.
+- **`user_profiles` Table**: Tracks user identifiers and structured preference parameters.
 - **`sessions` Table**: Triggers and persists individual threads belonging to specific user profiles.
-- **`messages` Table**: Logs individual utterances (role, content, timestamp).
+- **`user_memory` Table**: A key-value store for tracking specific user facts (e.g., name, last topics).
+
 
 ## 4. Dataset & Model Specifications
 - **`data/intent_dataset.csv`**: Contains pre-labeled sentence variations mapping to specific conversational goals.

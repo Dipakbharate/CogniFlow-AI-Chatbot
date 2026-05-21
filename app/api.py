@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from app.chatbot import Chatbot
 from app.memory import SQLiteMemory
+from app.intent_detector import detect_intent
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Chatbot API")
@@ -39,18 +40,30 @@ def chat_endpoint(request: ChatRequest):
     # Update memory with user message
     memory.update_history(request.session_id, "user", request.message, request.username)
     
-    # Fetch facts
+    # Fetch existing facts
     facts = memory.get_user_facts(request.username)
     
-    # Process the message
-    response = bot.process_message(request.message, history, updated_prefs, facts, request.file_format)
+    # Extract and save updated facts (using LLM)
+    updated_facts = bot.extract_facts(request.message, facts)
+    for key, val in updated_facts.items():
+        if val != facts.get(key):
+            memory.save_user_fact(request.username, key, val)
+            
+    # Load last session history if current history is empty/short OR the user query is classified as contextual
+    last_session_history = []
+    local_intent = detect_intent(request.message)
+    if len(history) < 2 or local_intent == "contextual":
+        last_session_history = memory.get_last_session_history(request.username, request.session_id)
     
-    # Extract and save facts (as per requirement)
-    user_input = request.message
-    if "my name is" in user_input.lower():
-        name = user_input.lower().split("my name is")[-1].strip()
-        memory.save_user_fact(request.username, "name", name)
-    memory.save_user_fact(request.username, "last_topic", user_input[:100])
+    # Process the message
+    response = bot.process_message(
+        message=request.message,
+        history=history,
+        user_prefs=updated_prefs,
+        facts=updated_facts,
+        file_format=request.file_format,
+        last_session_history=last_session_history
+    )
     
     # Update memory with assistant response
     memory.update_history(request.session_id, "assistant", response, request.username)

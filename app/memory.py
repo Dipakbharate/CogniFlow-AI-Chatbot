@@ -102,6 +102,13 @@ class SQLiteMemory:
             })
         return sessions
 
+    def get_last_session_history(self, username, current_session_id):
+        sessions = self.get_all_sessions(username)
+        for s in sessions:
+            if s["session_id"] != current_session_id:
+                return self.get_history(s["session_id"])
+        return []
+
     def get_user_preferences(self, username):
         conn = sqlite3.connect(self.db_path)
         c = conn.cursor()

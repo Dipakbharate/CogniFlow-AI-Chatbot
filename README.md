@@ -4,10 +4,10 @@ CogniFlow AI is a robust, multi-session, intent-aware AI chatbot that utilizes t
 
 ## Key Features
 - **General Chat & Context Memory**: Persistent conversations tracked per user using SQLite.
-- **Dynamic Intent Detection**: A custom Machine Learning model (Scikit-Learn/Joblib) combined with Gemini for highly accurate intent routing.
+- **Dynamic Intent Detection**: A custom Machine Learning model (Scikit-Learn/Joblib) combined with Gemini for highly accurate intent routing. Features a detailed confidence score breakdown UI and LLM fallback routing.
 - **Image Generation**: Automated text-to-image synthesis using Pollinations.ai (strictly gated by intent).
 - **Document Export (PDF/DOCX)**: On-the-fly generation of detailed reports from AI responses into downloadable PDF or DOCX formats.
-- **Personalized Memory**: Automatically learns and updates user preferences based on conversation flow.
+- **Personalized Memory & Cross-Session Context**: Automatically learns and updates user preferences and specific user facts (name, topics) across sessions for contextual continuity.
 
 ## Project Structure
 - `app/`: Application source code (Streamlit frontend, FastAPI backend, core logic).
@@ -31,7 +31,7 @@ CogniFlow AI is a robust, multi-session, intent-aware AI chatbot that utilizes t
 1. **Start the FastAPI Backend**:
    Open a terminal and run:
    ```bash
-   uvicorn app.api:app --reload --port 8000
+   uvicorn app.api:app --reload --port 8001
    ```
 2. **Start the Streamlit Frontend**:
    Open a second terminal and run:
